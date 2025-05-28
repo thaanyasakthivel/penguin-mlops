@@ -1,0 +1,21 @@
+name: Check Penguin Model
+
+on: [push]
+
+jobs:
+  check-model:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install requirements
+        run: pip install -r requirements.txt
+
+      - name: Load model
+        run: |
+          python -c "from joblib import load; model = load('penguin_model.joblib'); print('✅ Model loaded successfully!')"
